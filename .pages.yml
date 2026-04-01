@@ -7,6 +7,7 @@ content:
     label: "Certificates"
     type: file
     path: "_data/certificates.json"
+    list: true
     fields:
       - name: title
         type: string
@@ -23,6 +24,7 @@ content:
     label: Projects
     type: file
     path: "_data/projects.json"
+    list: true
     fields:
       - name: title
         type: string
@@ -61,6 +63,7 @@ content:
     label: Events
     type: file
     path: "_data/events.json"
+    list: true
     fields:
       - name: title
         type: string
