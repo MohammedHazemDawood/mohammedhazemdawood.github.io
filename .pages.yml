@@ -1,0 +1,85 @@
+media:
+  input: "assets/images"
+  output: "/images"
+
+content:
+  - name: "certificates"
+    label: "Certificates"
+    type: collection
+    path: "_data/certificates"
+    fields:
+      - name: title
+        type: string
+      - name: issuer
+        type: string
+      - name: date
+        type: date
+      - name: image
+        type: image
+      - name: url
+        type: string
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: "_data/projects"
+    fields:
+      - name: title
+        type: string
+      - name: description
+        type: text
+      - name: longDescription
+        type: text
+      - name: techStack
+        type: string
+        options:
+          multiple: true
+      - name: images
+        type: image
+        options:
+          multiple: true
+          unique: true
+          extensions: [jpg, png, webp]
+          rename: true
+      - name: githubUrl
+        label: GitHub URL
+        type: string
+      - name: liveUrl
+        label: Live URL
+        type: string
+      - name: date
+        type: date
+      - name: status
+        type: select
+        options:
+          values:
+            - completed
+            - in progress
+            - archived
+    
+  - name: events
+    label: Events
+    type: collection
+    path: "_data/events"
+    fields:
+      - name: title
+        type: string
+      - name: description
+        type: text
+      - name: myRole
+        type: string
+      - name: expandedRole
+        type: text
+      - name: takeaways
+        type: text
+      - name: location
+        type: string
+      - name: images
+        type: image
+        options:
+          multiple: true
+          unique: true
+          extensions: [jpg, png, webp]
+          rename: true
+      - name: date
+        type: date
