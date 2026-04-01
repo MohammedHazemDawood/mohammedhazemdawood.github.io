@@ -5,8 +5,8 @@ media:
 content:
   - name: "certificates"
     label: "Certificates"
-    type: collection
-    path: "_data/certificates"
+    type: file
+    path: "_data/certificates.json"
     fields:
       - name: title
         type: string
@@ -21,8 +21,8 @@ content:
 
   - name: projects
     label: Projects
-    type: collection
-    path: "_data/projects"
+    type: file
+    path: "_data/projects.json"
     fields:
       - name: title
         type: string
@@ -59,8 +59,8 @@ content:
     
   - name: events
     label: Events
-    type: collection
-    path: "_data/events"
+    type: file
+    path: "_data/events.json"
     fields:
       - name: title
         type: string
