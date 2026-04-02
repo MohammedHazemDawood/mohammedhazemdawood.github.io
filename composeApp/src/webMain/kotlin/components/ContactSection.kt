@@ -17,9 +17,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
+import com.github.panpf.sketch.PlatformContext
+import com.github.panpf.sketch.Sketch
+import com.github.panpf.sketch.decode.SvgDecoder
+import com.github.panpf.sketch.rememberAsyncImagePainter
+import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
+import com.mhd_07.personal_website.model.Contact
 import com.mhd_07.personal_website.openUrl
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -55,9 +60,7 @@ fun ContactSection(
         ) {
             contacts.forEach {
                 ContactItem(
-                    icon = it.icon,
-                    title = it.title,
-                    onClick = { openUrl(it.link) }
+                    contact = it,
                 )
             }
         }
@@ -66,40 +69,46 @@ fun ContactSection(
 
 @Composable
 private fun ContactItem(
-    icon: Painter,
-    title: String,
-    onClick: () -> Unit
+    contact: Contact,
 ) {
     val theme = LocalTheme.current
+    val sketch = Sketch.Builder(PlatformContext.INSTANCE)
+        .components {
+            addDecoder(SvgDecoder.Factory())
+        }
+        .build()
+
     Column(
-        modifier = Modifier.clickable { onClick() }.padding(theme.dimensions.smallMargin),
+        modifier = Modifier.clickable { openUrl(contact.link) }
+            .padding(theme.dimensions.smallMargin),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin)
     ) {
         Card(
-            shape = RoundedCornerShape(theme.dimensions.titleDescriptionSpacing),
+            shape = RoundedCornerShape(theme.dimensions.titleContentSpacing),
             colors = CardDefaults.cardColors(containerColor = theme.colors.primary.copy(alpha = 0.1f)),
             modifier = Modifier.size(64.dp)
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 Icon(
-                    painter = icon,
+                    painter = rememberAsyncImagePainter(
+                        ComposableImageRequest(uri = BASE_URL + contact.icon) { size(32, 32) },
+                        sketch = sketch
+                    ),
                     contentDescription = null,
-                    modifier = Modifier.size(32.dp),
-                    tint = theme.colors.primary
+                    tint = theme.colors.primary,
+                    modifier = Modifier.size(32.dp)
                 )
             }
         }
         GText(
-            text = title,
+            text = contact.title,
             style = theme.typography.titleSmall,
             color = theme.colors.text
         )
     }
 }
 
-data class Contact(
-    val title: String,
-    val link: String,
-    val icon: Painter
-)
+
+const val BASE_URL =
+    "https://raw.githubusercontent.com/MohammedHazemDawood/MohammedHazemDawood/main/assets"

@@ -1,5 +1,6 @@
 package components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,10 +23,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.github.panpf.sketch.rememberAsyncImagePainter
+import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
 import com.mhd_07.personal_website.model.Event
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.image.LandscapistImage
 import org.jetbrains.compose.resources.painterResource
 import personalwebsite.composeapp.generated.resources.Res
 import personalwebsite.composeapp.generated.resources.calendar
@@ -87,7 +89,8 @@ fun EventCardDesktop(
                     Icon(
                         painter = painterResource(Res.drawable.location),
                         contentDescription = null,
-                        tint = theme.colors.text
+                        tint = theme.colors.text,
+                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
                     )
                     GText(
                         text = event.location,
@@ -102,7 +105,8 @@ fun EventCardDesktop(
                     Icon(
                         painter = painterResource(Res.drawable.calendar),
                         contentDescription = null,
-                        tint = theme.colors.text
+                        tint = theme.colors.text,
+                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
                     )
                     GText(
                         text = event.date,
@@ -119,7 +123,7 @@ fun EventCardDesktop(
             ) {
                 if (event.images.isNotEmpty())
                     Row(horizontalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin)) {
-                        LandscapistImage(
+                        Image(
                             modifier = Modifier.clip(
                                 RoundedCornerShape(
                                     topStart = theme.dimensions.cardInnerMargin,
@@ -129,18 +133,17 @@ fun EventCardDesktop(
                                 )
                             ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images) }
                                 .weight(if (event.images.size == 1) 2f else 1f),
-                            imageModel = { event.images.first() },
-                            imageOptions = ImageOptions(
-                                contentScale = ContentScale.Crop,
-                                contentDescription = null
-                            ),
+                            painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images.first())),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
                         )
                         if (event.images.size > 1)
                             Box(
-                                modifier = Modifier.weight(1f),
+                                modifier = Modifier.weight(1f)
+                                    .clickable { onOpenDialog(event.images) },
                                 contentAlignment = Alignment.Center
                             ) {
-                                LandscapistImage(
+                                Image(
                                     modifier = Modifier.clip(
                                         RoundedCornerShape(
                                             topEnd = theme.dimensions.cardInnerMargin,
@@ -149,11 +152,9 @@ fun EventCardDesktop(
                                             bottomStart = 0.dp
                                         )
                                     ).aspectRatio(2 / 3f),
-                                    imageModel = { event.images[1] },
-                                    imageOptions = ImageOptions(
-                                        contentScale = ContentScale.Crop,
-                                        contentDescription = null
-                                    )
+                                    painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images[1])),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop
                                 )
 
                                 if (event.images.size >= 3)
@@ -168,8 +169,7 @@ fun EventCardDesktop(
                                                     bottomStart = 0.dp
                                                 )
                                             )
-                                            .background(Color.Black.copy(alpha = 0.6f))
-                                            .clickable { onOpenDialog(event.images) },
+                                            .background(Color.Black.copy(alpha = 0.6f)),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         GText(
@@ -235,7 +235,7 @@ fun EventCardMobile(
                     horizontalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin),
                     modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing)
                 ) {
-                    LandscapistImage(
+                    Image(
                         modifier = Modifier.clip(
                             RoundedCornerShape(
                                 topStart = theme.dimensions.cardInnerMargin,
@@ -245,18 +245,23 @@ fun EventCardMobile(
                             )
                         ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images) }
                             .weight(if (event.images.size == 1) 2f else 1f),
-                        imageModel = { event.images.first() },
-                        imageOptions = ImageOptions(
-                            contentScale = ContentScale.Crop,
-                            contentDescription = null
-                        ),
+                        painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images.first())),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop
                     )
                     if (event.images.size > 1)
                         Box(
-                            modifier = Modifier.weight(1f),
+                            modifier = Modifier.weight(1f).clip(
+                                RoundedCornerShape(
+                                    topEnd = theme.dimensions.cardInnerMargin,
+                                    bottomEnd = theme.dimensions.cardInnerMargin,
+                                    topStart = 0.dp,
+                                    bottomStart = 0.dp
+                                )
+                            ).clickable { onOpenDialog(event.images) },
                             contentAlignment = Alignment.Center
                         ) {
-                            LandscapistImage(
+                            Image(
                                 modifier = Modifier.clip(
                                     RoundedCornerShape(
                                         topEnd = theme.dimensions.cardInnerMargin,
@@ -265,27 +270,16 @@ fun EventCardMobile(
                                         bottomStart = 0.dp
                                     )
                                 ).aspectRatio(2 / 3f),
-                                imageModel = { event.images[1] },
-                                imageOptions = ImageOptions(
-                                    contentScale = ContentScale.Crop,
-                                    contentDescription = null
-                                )
+                                painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images[1])),
+                                contentDescription = null,
+                                contentScale = ContentScale.Crop
                             )
 
                             if (event.images.size >= 3)
                                 Box(
                                     modifier = Modifier
                                         .matchParentSize()
-                                        .clip(
-                                            RoundedCornerShape(
-                                                topEnd = theme.dimensions.cardInnerMargin,
-                                                bottomEnd = theme.dimensions.cardInnerMargin,
-                                                topStart = 0.dp,
-                                                bottomStart = 0.dp
-                                            )
-                                        )
-                                        .background(Color.Black.copy(alpha = 0.6f))
-                                        .clickable { onOpenDialog(event.images) },
+                                        .background(Color.Black.copy(alpha = 0.6f)),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     GText(
@@ -320,7 +314,8 @@ fun EventCardMobile(
                     Icon(
                         painter = painterResource(Res.drawable.location),
                         contentDescription = null,
-                        tint = theme.colors.text
+                        tint = theme.colors.text,
+                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
                     )
                     GText(
                         text = event.location,
@@ -335,7 +330,8 @@ fun EventCardMobile(
                     Icon(
                         painter = painterResource(Res.drawable.calendar),
                         contentDescription = null,
-                        tint = theme.colors.text
+                        tint = theme.colors.text,
+                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
                     )
                     GText(
                         text = event.date,

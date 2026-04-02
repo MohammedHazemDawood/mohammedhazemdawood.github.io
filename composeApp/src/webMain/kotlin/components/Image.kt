@@ -1,13 +1,12 @@
 package components
 
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.image.LandscapistImage
+import com.github.panpf.sketch.rememberAsyncImagePainter
+import com.github.panpf.sketch.request.ComposableImageRequest
 
-
-const val BASE_URL = "https://MohammedHazemDawood.github.io/PersonalWebsite"
 
 @Composable
 fun RemoteImage(
@@ -15,12 +14,10 @@ fun RemoteImage(
     url: String,
     contentDescription: String? = null,
 ){
-    LandscapistImage(
+    Image(
         modifier = modifier,
-        imageModel = { BASE_URL + url },
-        imageOptions = ImageOptions(
-            contentScale = ContentScale.Fit,
-            contentDescription = contentDescription
-        ),
+        painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + url)),
+        contentDescription = contentDescription,
+        contentScale = ContentScale.Fit
     )
 }
