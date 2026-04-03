@@ -1,8 +1,22 @@
 media:
-  input: "assets/images"
-  output: "/images"
+  input: "assets"
+  output: "/"
 
 content:
+  - name: "hero_data"
+    label: HeroData
+    type: file
+    path: "_data/hero.json"
+    list: true
+    fields:
+      - name: greeting
+        type: string
+      - name: summury
+        type: string
+      - name: image
+        type: image
+      - name: resume
+        type: file
   - name: "certificates"
     label: "Certificates"
     type: file
