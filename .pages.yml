@@ -100,3 +100,15 @@ content:
           rename: true
       - name: date
         type: date
+  - name: "contact"
+    label: ContactInfo
+    type: file
+    path: "_data/contact.json"
+    list: false
+    fields:
+      - name: title
+        type: string
+      - name: link
+        type: string
+      - name: icon
+        type: image
