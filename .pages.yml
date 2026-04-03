@@ -104,7 +104,7 @@ content:
     label: ContactInfo
     type: file
     path: "_data/contact.json"
-    list: false
+    list: true
     fields:
       - name: title
         type: string
