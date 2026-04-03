@@ -28,7 +28,7 @@ content:
       - name: issuer
         type: string
       - name: date
-        type: date
+        type: string
       - name: image
         type: image
       - name: url
@@ -64,7 +64,7 @@ content:
         label: Live URL
         type: string
       - name: date
-        type: date
+        type: string
       - name: status
         type: select
         options:
@@ -99,7 +99,7 @@ content:
           extensions: [jpg, png, webp]
           rename: true
       - name: date
-        type: date
+        type: string
   - name: "contact"
     label: ContactInfo
     type: file
