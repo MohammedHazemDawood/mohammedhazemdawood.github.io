@@ -43,7 +43,7 @@ import personalwebsite.composeapp.generated.resources.*
 fun ProjectCardDesktop(
     modifier: Modifier = Modifier,
     project: Project,
-    onOpenDialog: (List<String>) -> Unit,
+    onOpenDialog: (List<String>, Int) -> Unit,
     shape: RoundedCornerShape
 ) {
     val theme = LocalTheme.current
@@ -200,7 +200,7 @@ fun ProjectCardDesktop(
                         modifier = Modifier
                             .clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
                             .aspectRatio(16 / 10f)
-                            .clickable { onOpenDialog(project.images) },
+                            .clickable { onOpenDialog(project.images, 0) },
                         contentScale = ContentScale.Crop
                     )
 
@@ -214,7 +214,7 @@ fun ProjectCardDesktop(
 fun ProjectCardMobile(
     modifier: Modifier = Modifier,
     project: Project,
-    onOpenDialog: (List<String>) -> Unit,
+    onOpenDialog: (List<String>, Int) -> Unit,
     shape: RoundedCornerShape
 ) {
     val theme = LocalTheme.current
@@ -250,7 +250,7 @@ fun ProjectCardMobile(
                         .padding(bottom = theme.dimensions.inSectionSpacing)
                         .clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
                         .aspectRatio(16 / 10f)
-                        .clickable { onOpenDialog(project.images) },
+                        .clickable { onOpenDialog(project.images, 0) },
                     contentScale = ContentScale.Crop
                 )
             }

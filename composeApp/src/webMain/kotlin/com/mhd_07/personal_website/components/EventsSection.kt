@@ -15,7 +15,7 @@ import com.mhd_07.personal_website.util.ScreenType
 fun EventsSection(
     modifier: Modifier = Modifier,
     data: List<Event>,
-    onOpenDialog: (List<String>) -> Unit
+    onOpenDialog: (List<String>, Int) -> Unit
 ) {
     val theme = LocalTheme.current
     Column(

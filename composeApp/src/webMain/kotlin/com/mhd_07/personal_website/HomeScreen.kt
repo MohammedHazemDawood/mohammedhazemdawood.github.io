@@ -65,6 +65,7 @@ fun HomeScreen() {
     }
     val coroutineScope = rememberCoroutineScope()
     var dialogData by remember { mutableStateOf(emptyList<String>()) }
+    var dialogImageIndex by remember { mutableStateOf(0) }
     var events by remember {
         mutableStateOf(emptyList<Event>())
     }
@@ -133,8 +134,9 @@ fun HomeScreen() {
                 EventsSection(
                     modifier = Modifier.fillMaxWidth(0.8f),
                     data = events,
-                    onOpenDialog = {
+                    onOpenDialog = { it, index ->
                         dialogData = it
+                        dialogImageIndex = index
                     })
             }//end of Events Section
             item(key = Section.Certificates.id) {
@@ -150,8 +152,9 @@ fun HomeScreen() {
                 ProjectsSection(
                     modifier = Modifier.fillMaxWidth(0.8f),
                     data = projects,
-                    onOpenDialog = {
+                    onOpenDialog = { it, index ->
                         dialogData = it
+                        dialogImageIndex = index
                     }
                 )
             }//end of Projects Section
@@ -194,6 +197,7 @@ fun HomeScreen() {
         ImagePreviewDialog(
             images = dialogData,
             onDismiss = { dialogData = emptyList() },
+            firstImageIndex = dialogImageIndex
         )
 
 }

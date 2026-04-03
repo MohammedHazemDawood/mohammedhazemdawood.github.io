@@ -36,7 +36,7 @@ import personalwebsite.composeapp.generated.resources.location
 fun EventCardDesktop(
     modifier: Modifier = Modifier,
     event: Event,
-    onOpenDialog: (List<String>) -> Unit,
+    onOpenDialog: (List<String>, Int) -> Unit,
     shape: RoundedCornerShape
 ) {
     val theme = LocalTheme.current
@@ -131,7 +131,7 @@ fun EventCardDesktop(
                                     topEnd = if (event.images.size == 1) theme.dimensions.cardInnerMargin else 0.dp,
                                     bottomEnd = if (event.images.size == 1) theme.dimensions.cardInnerMargin else 0.dp
                                 )
-                            ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images) }
+                            ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images, 0) }
                                 .weight(if (event.images.size == 1) 2f else 1f),
                             painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images.first())),
                             contentDescription = null,
@@ -140,7 +140,7 @@ fun EventCardDesktop(
                         if (event.images.size > 1)
                             Box(
                                 modifier = Modifier.weight(1f)
-                                    .clickable { onOpenDialog(event.images) },
+                                    .clickable { onOpenDialog(event.images, 1) },
                                 contentAlignment = Alignment.Center
                             ) {
                                 Image(
@@ -196,7 +196,7 @@ fun EventCardDesktop(
 fun EventCardMobile(
     modifier: Modifier = Modifier,
     event: Event,
-    onOpenDialog: (List<String>) -> Unit,
+    onOpenDialog: (List<String>, Int) -> Unit,
     shape: RoundedCornerShape
 ) {
     val theme = LocalTheme.current
@@ -243,7 +243,7 @@ fun EventCardMobile(
                                 topEnd = if (event.images.size == 1) theme.dimensions.cardInnerMargin else 0.dp,
                                 bottomEnd = if (event.images.size == 1) theme.dimensions.cardInnerMargin else 0.dp
                             )
-                        ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images) }
+                        ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images, 0) }
                             .weight(if (event.images.size == 1) 2f else 1f),
                         painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images.first())),
                         contentDescription = null,
@@ -258,7 +258,7 @@ fun EventCardMobile(
                                     topStart = 0.dp,
                                     bottomStart = 0.dp
                                 )
-                            ).clickable { onOpenDialog(event.images) },
+                            ).clickable { onOpenDialog(event.images, 1) },
                             contentAlignment = Alignment.Center
                         ) {
                             Image(

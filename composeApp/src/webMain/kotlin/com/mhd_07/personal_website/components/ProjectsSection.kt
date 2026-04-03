@@ -15,7 +15,7 @@ import com.mhd_07.personal_website.util.ScreenType
 fun ProjectsSection(
     modifier: Modifier = Modifier,
     data: List<Project>,
-    onOpenDialog: (List<String>) -> Unit
+    onOpenDialog: (List<String>, Int) -> Unit
 ) {
     val theme = LocalTheme.current
     Column(
