@@ -7,7 +7,7 @@ content:
     label: HeroData
     type: file
     path: "_data/hero.json"
-    list: true
+    list: false
     fields:
       - name: greeting
         type: string
