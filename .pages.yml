@@ -12,7 +12,7 @@ content:
       - name: greeting
         type: string
       - name: summury
-        type: string
+        type: text
       - name: image
         type: image
       - name: resume
