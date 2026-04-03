@@ -11,7 +11,7 @@ content:
     fields:
       - name: greeting
         type: string
-      - name: summury
+      - name: summary
         type: text
       - name: image
         type: image
