@@ -1,0 +1,19 @@
+{
+  "name": "PersonalWebsite",
+  "version": "unspecified",
+  "private": true,
+  "workspaces": [
+    "packages/PersonalWebsite-composeApp",
+    "packages/PersonalWebsite-composeApp-test",
+    "packages_imported/skiko-wasm-js/0.9.37-4",
+    "packages_imported/skiko-js-wasm-runtime/0.9.37-4",
+    "packages_imported/Kotlin-DateTime-library-kotlinx-datetime-wasm-js/0.7.1",
+    "packages_imported/ktor-ktor-client-ktor-client-core-wasm-js/3.0.3"
+  ],
+  "devDependencies": {},
+  "dependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {},
+  "bundledDependencies": [],
+  "resolutions": {}
+}
