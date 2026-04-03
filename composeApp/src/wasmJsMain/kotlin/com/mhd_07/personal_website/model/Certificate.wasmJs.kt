@@ -8,7 +8,7 @@ import org.w3c.fetch.Response
 @OptIn(ExperimentalWasmJsInterop::class)
 actual suspend fun fetchCertificates(): List<Certificate> {
     val response: Response = window.fetch(
-        "https://raw.githubusercontent.com/MohammedHazemDawood/MohammedHazemDawood/main/_data/certificates.json"
+        "https://raw.githubusercontent.com/MohammedHazemDawood/mohammedhazemdawood.github.io/main/_data/certificates.json"
     ).await()
 
     if (!response.ok) {

@@ -14,7 +14,7 @@ val jsonFormat = Json {
 @OptIn(ExperimentalWasmJsInterop::class)
 actual suspend fun fetchContacts(): List<Contact> {
     val response: Response = window.fetch(
-        "https://raw.githubusercontent.com/MohammedHazemDawood/MohammedHazemDawood/main/_data/contact.json"
+        "https://raw.githubusercontent.com/MohammedHazemDawood/mohammedhazemdawood.github.io/main/_data/contact.json"
     ).await()
 
     if (!response.ok) {

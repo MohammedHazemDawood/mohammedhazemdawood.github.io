@@ -111,4 +111,4 @@ private fun ContactItem(
 
 
 const val BASE_URL =
-    "https://raw.githubusercontent.com/MohammedHazemDawood/MohammedHazemDawood/main/assets"
+    "https://raw.githubusercontent.com/MohammedHazemDawood/mohammedhazemdawood.github.io/main/assets"
