@@ -1,6 +1,7 @@
 package com.mhd_07.personal_website.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.github.panpf.sketch.rememberAsyncImagePainter
 import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
@@ -40,13 +42,14 @@ fun HomeSection(modifier: Modifier = Modifier, data: Hero) {
                 text = data.greeting,
                 style = theme.typography.titleLarge,
                 color = theme.colors.primary,
+                align = TextAlign.Center
             )
             TypewriterTextEffect(data.summary) { displayedText ->
                 GText(
                     text = displayedText,
                     style = theme.typography.display,
                     color = theme.colors.text,
-                    align = TextAlign.Center
+                    align = TextAlign.Center,
                 )
             }
             Button(

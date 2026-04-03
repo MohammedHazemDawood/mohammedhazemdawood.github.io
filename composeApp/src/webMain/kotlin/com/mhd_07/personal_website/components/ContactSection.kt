@@ -87,17 +87,17 @@ private fun ContactItem(
         Card(
             shape = RoundedCornerShape(theme.dimensions.titleContentSpacing),
             colors = CardDefaults.cardColors(containerColor = theme.colors.primary.copy(alpha = 0.1f)),
-            modifier = Modifier.size(64.dp)
+            modifier = Modifier.size(theme.dimensions.contactCardSize)
         ) {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 Icon(
                     painter = rememberAsyncImagePainter(
-                        ComposableImageRequest(uri = BASE_URL + contact.icon) { size(32, 32) },
+                        ComposableImageRequest(uri = BASE_URL + contact.icon),
                         sketch = sketch
                     ),
                     contentDescription = null,
                     tint = theme.colors.primary,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(theme.dimensions.contactIconSize)
                 )
             }
         }

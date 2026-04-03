@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.github.panpf.sketch.rememberAsyncImagePainter
 import com.github.panpf.sketch.request.ComposableImageRequest
 import com.github.panpf.sketch.request.svgBackgroundColor
@@ -99,7 +100,7 @@ fun CertificateCardDesktop(
                             painter = painterResource(Res.drawable.calendar),
                             contentDescription = null,
                             tint = theme.colors.text,
-                            modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                            modifier = Modifier.size(theme.dimensions.iconSize)
                         )
                         GText(
                             text = certificate.date,
@@ -110,19 +111,24 @@ fun CertificateCardDesktop(
                 }
             }
 
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing)
-            ) {
-                Image(
-                    painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + certificate.image){ svgBackgroundColor(Color.Red.toArgb()) }),
-                    contentDescription = null,
-                    modifier = Modifier.clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
-                        .aspectRatio(16 / 9f)
-                        .clickable { onOpenDialog(certificate.image) },
-                    contentScale = ContentScale.Crop
-                )
-            }
+            if (certificate.image.isNotEmpty())
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing)
+                ) {
+                    Image(
+                        painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + certificate.image) {
+                            svgBackgroundColor(
+                                Color.Red.toArgb()
+                            )
+                        }),
+                        contentDescription = null,
+                        modifier = Modifier.clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
+                            .aspectRatio(16 / 9f)
+                            .clickable { onOpenDialog(certificate.image) },
+                        contentScale = ContentScale.Crop
+                    )
+                }
         }
     }
 }
@@ -158,16 +164,16 @@ fun CertificateCardMobile(
                 modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing),
                 align = TextAlign.Center
             )
-
-            Image(
-                painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + certificate.image)),
-                contentDescription = null,
-                modifier = Modifier.clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
-                    .aspectRatio(16 / 9f)
-                    .clickable { onOpenDialog(certificate.image) }
-                    .padding(bottom = theme.dimensions.inSectionSpacing),
-                contentScale = ContentScale.Crop
-            )
+            if (certificate.image.isNotEmpty())
+                Image(
+                    painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + certificate.image)),
+                    contentDescription = null,
+                    modifier = Modifier.clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
+                        .aspectRatio(16 / 9f)
+                        .clickable { onOpenDialog(certificate.image) }
+                        .padding(bottom = theme.dimensions.inSectionSpacing),
+                    contentScale = ContentScale.Crop
+                )
             Button(
                 onClick = { openUrl(certificate.url) },
                 colors = ButtonDefaults.buttonColors(containerColor = theme.colors.primary),
@@ -188,7 +194,7 @@ fun CertificateCardMobile(
                     painter = painterResource(Res.drawable.calendar),
                     contentDescription = null,
                     tint = theme.colors.text,
-                    modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                    modifier = Modifier.size(theme.dimensions.iconSize)
                 )
                 GText(
                     text = certificate.date,

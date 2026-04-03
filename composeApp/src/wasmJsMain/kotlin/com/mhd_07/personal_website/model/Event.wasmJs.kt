@@ -18,7 +18,7 @@ actual suspend fun fetchEvents(): List<Event> {
     val jsonText: String = response.text().await<JsString>().toString()
 //        .also { println("demo:$it") }   // keep your debug print
 
-    println(jsonText)
+//    println(jsonText)
     val eventsList = jsonFormat.decodeFromString<List<Event>>(jsonText)
 
     return eventsList

@@ -21,6 +21,12 @@ sealed class Dimensions {
     abstract val cardInnerMargin : Dp
     abstract val smallMargin: Dp
 
+    abstract val iconSize : Dp
+
+    abstract val contactIconSize : Dp
+
+    abstract val contactCardSize : Dp
+
     object Desktop : Dimensions(){
         override val sectionSpacing: Dp
             get() = 88.dp
@@ -34,6 +40,12 @@ sealed class Dimensions {
             get() = 32.dp
         override val smallMargin: Dp
             get() = 8.dp
+        override val iconSize: Dp
+            get() = 32.dp
+        override val contactIconSize: Dp
+            get() = 32.dp
+        override val contactCardSize: Dp
+            get() = 64.dp
     }
     object Mobile : Dimensions(){
         override val sectionSpacing: Dp
@@ -48,6 +60,12 @@ sealed class Dimensions {
             get() = 16.dp
         override val smallMargin: Dp
             get() = 4.dp
+        override val iconSize: Dp
+            get() = 24.dp
+        override val contactIconSize: Dp
+            get() = 24.dp
+        override val contactCardSize: Dp
+            get() = 48.dp
     }
 }
 

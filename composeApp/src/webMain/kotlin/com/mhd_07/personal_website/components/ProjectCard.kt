@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.github.panpf.sketch.rememberAsyncImagePainter
 import com.github.panpf.sketch.request.ComposableImageRequest
@@ -35,9 +36,7 @@ import com.mhd_07.personal_website.model.Project
 import com.mhd_07.personal_website.openUrl
 import org.jetbrains.compose.resources.painterResource
 import personalwebsite.composeapp.generated.resources.Res
-import personalwebsite.composeapp.generated.resources.calendar
-import personalwebsite.composeapp.generated.resources.code
-import personalwebsite.composeapp.generated.resources.live
+import personalwebsite.composeapp.generated.resources.*
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -99,8 +98,8 @@ fun ProjectCardDesktop(
                 )
 
                 FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin),
+                    verticalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin),
                     modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing)
                 ) {
                     project.techStack.forEach { tech ->
@@ -121,34 +120,52 @@ fun ProjectCardDesktop(
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing),
-                    modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing)
+                    modifier = if (project.images.isNotEmpty()) Modifier.padding(bottom = theme.dimensions.inSectionSpacing) else Modifier
+                        .fillMaxWidth(0.5f)
+                        .padding(bottom = theme.dimensions.inSectionSpacing)
                 ) {
                     if (project.githubUrl.isNotEmpty()) {
                         Button(
+                            modifier = Modifier.weight(1f),
                             onClick = { openUrl(project.githubUrl) },
-                            colors = ButtonDefaults.buttonColors(containerColor = theme.colors.primary, contentColor = theme.colors.onPrimary)
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = theme.colors.primary,
+                                contentColor = theme.colors.onPrimary
+                            )
                         ) {
                             Icon(
                                 painter = painterResource(Res.drawable.code),
                                 contentDescription = null,
-                                modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                                modifier = Modifier.size(theme.dimensions.iconSize)
                             )
                             Spacer(Modifier.width(theme.dimensions.smallMargin))
-                            GText(text = "Code", style = theme.typography.display, color = theme.colors.onPrimary)
+                            GText(
+                                text = "Code",
+                                style = theme.typography.display,
+                                color = theme.colors.onPrimary
+                            )
                         }
                     }
                     if (project.liveUrl.isNotEmpty()) {
                         Button(
+                            modifier = Modifier.weight(1f),
                             onClick = { openUrl(project.githubUrl) },
-                            colors = ButtonDefaults.buttonColors(containerColor = theme.colors.primary, contentColor = theme.colors.onPrimary)
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = theme.colors.primary,
+                                contentColor = theme.colors.onPrimary
+                            )
                         ) {
                             Icon(
                                 painter = painterResource(Res.drawable.live),
                                 contentDescription = null,
-                                modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                                modifier = Modifier.size(theme.dimensions.iconSize)
                             )
                             Spacer(Modifier.width(8.dp))
-                            GText(text = "Live", style = theme.typography.display, color = theme.colors.onPrimary)
+                            GText(
+                                text = "Live",
+                                style = theme.typography.display,
+                                color = theme.colors.onPrimary
+                            )
                         }
                     }
                 }
@@ -162,7 +179,7 @@ fun ProjectCardDesktop(
                             painter = painterResource(Res.drawable.calendar),
                             contentDescription = null,
                             tint = theme.colors.text,
-                            modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                            modifier = Modifier.size(theme.dimensions.iconSize)
                         )
                         GText(
                             text = project.date,
@@ -172,11 +189,11 @@ fun ProjectCardDesktop(
                     }
             }
 
-            Column(
-                modifier = Modifier.weight(0.8f),
-                verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing)
-            ) {
-                if (project.images.isNotEmpty()) {
+            if (project.images.isNotEmpty())
+                Column(
+                    modifier = Modifier.weight(0.8f),
+                    verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing)
+                ) {
                     Image(
                         painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + project.images.first())),
                         contentDescription = null,
@@ -186,8 +203,8 @@ fun ProjectCardDesktop(
                             .clickable { onOpenDialog(project.images) },
                         contentScale = ContentScale.Crop
                     )
+
                 }
-            }
         }
     }
 }
@@ -255,8 +272,8 @@ fun ProjectCardMobile(
             )
 
             FlowRow(
-                horizontalArrangement = Arrangement.Center,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin),
+                verticalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin),
                 modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing)
             ) {
                 project.techStack.forEach { tech ->
@@ -274,35 +291,55 @@ fun ProjectCardMobile(
             }
 
             Row(
-                horizontalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing),
+                horizontalArrangement = Arrangement.spacedBy(theme.dimensions.titleContentSpacing),
                 modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing)
             ) {
                 if (project.githubUrl.isNotEmpty()) {
                     Button(
+                        modifier = Modifier.weight(1f),
                         onClick = { openUrl(project.githubUrl) },
-                        colors = ButtonDefaults.buttonColors(containerColor = theme.colors.primary, contentColor = theme.colors.onPrimary)
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = theme.colors.primary,
+                            contentColor = theme.colors.onPrimary
+                        )
                     ) {
                         Icon(
                             painter = painterResource(Res.drawable.code),
                             contentDescription = null,
-                            modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                            modifier = Modifier.size(theme.dimensions.iconSize)
                         )
                         Spacer(Modifier.width(theme.dimensions.smallMargin))
-                        GText(text = "Code", style = theme.typography.display, color = theme.colors.onPrimary)
+                        GText(
+                            text = "Code",
+                            style = theme.typography.display,
+                            color = theme.colors.onPrimary,
+                            overflow = TextOverflow.Ellipsis,
+                            singleLine = true
+                        )
                     }
                 }
                 if (project.liveUrl.isNotEmpty()) {
                     Button(
+                        modifier = Modifier.weight(1f),
                         onClick = { openUrl(project.githubUrl) },
-                        colors = ButtonDefaults.buttonColors(containerColor = theme.colors.primary, contentColor = theme.colors.onPrimary)
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = theme.colors.primary,
+                            contentColor = theme.colors.onPrimary
+                        )
                     ) {
                         Icon(
                             painter = painterResource(Res.drawable.live),
                             contentDescription = null,
-                            modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                            modifier = Modifier.size(theme.dimensions.iconSize)
                         )
                         Spacer(Modifier.width(8.dp))
-                        GText(text = "Live", style = theme.typography.display, color = theme.colors.onPrimary)
+                        GText(
+                            text = "Live",
+                            style = theme.typography.display,
+                            color = theme.colors.onPrimary,
+                                    overflow = TextOverflow.Ellipsis,
+                            singleLine = true
+                        )
                     }
                 }
             }
@@ -316,7 +353,7 @@ fun ProjectCardMobile(
                         painter = painterResource(Res.drawable.calendar),
                         contentDescription = null,
                         tint = theme.colors.text,
-                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                        modifier = Modifier.size(theme.dimensions.iconSize)
                     )
                     GText(
                         text = project.date,

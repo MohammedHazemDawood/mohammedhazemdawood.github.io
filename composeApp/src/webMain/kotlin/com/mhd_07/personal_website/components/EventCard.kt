@@ -90,7 +90,7 @@ fun EventCardDesktop(
                         painter = painterResource(Res.drawable.location),
                         contentDescription = null,
                         tint = theme.colors.text,
-                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                        modifier = Modifier.size(theme.dimensions.iconSize)
                     )
                     GText(
                         text = event.location,
@@ -106,7 +106,7 @@ fun EventCardDesktop(
                         painter = painterResource(Res.drawable.calendar),
                         contentDescription = null,
                         tint = theme.colors.text,
-                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                        modifier = Modifier.size(theme.dimensions.iconSize)
                     )
                     GText(
                         text = event.date,
@@ -315,7 +315,7 @@ fun EventCardMobile(
                         painter = painterResource(Res.drawable.location),
                         contentDescription = null,
                         tint = theme.colors.text,
-                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                        modifier = Modifier.size(theme.dimensions.iconSize)
                     )
                     GText(
                         text = event.location,
@@ -331,7 +331,7 @@ fun EventCardMobile(
                         painter = painterResource(Res.drawable.calendar),
                         contentDescription = null,
                         tint = theme.colors.text,
-                        modifier = Modifier.size(theme.dimensions.inSectionSpacing)
+                        modifier = Modifier.size(theme.dimensions.iconSize)
                     )
                     GText(
                         text = event.date,

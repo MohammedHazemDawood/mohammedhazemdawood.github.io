@@ -12,6 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
+import androidx.compose.material3.pulltorefresh.pullToRefresh
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -25,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.zIndex
 import com.mhd_07.personal_website.model.Certificate
 import com.mhd_07.personal_website.model.Contact
 import com.mhd_07.personal_website.model.Event
@@ -78,7 +83,6 @@ fun HomeScreen() {
         mutableStateOf(Hero())
     }
 
-    val pagerState = rememberPagerState { dialogData.size }
 
     LaunchedEffect(Unit) {
 
@@ -89,22 +93,32 @@ fun HomeScreen() {
             certificates = fetchCertificates()
             contacts = fetchContacts()
 
-            println(heroData)
-            println(events)
-            println(projects)
-            println(certificates)
-            println(contacts)
-
         } catch (e: Throwable) {
-            println("❌ LaunchedEffect CRASHED:$e")
-            e.printStackTrace()
+//            println("❌ LaunchedEffect CRASHED:$e")
+//            e.printStackTrace()
         }
     }
+    val pullToRefreshState = rememberPullToRefreshState()
+    var isRefreshing by remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier.fillMaxSize().background(theme.colors.background),
-        contentAlignment = Alignment.TopCenter
+        modifier = Modifier.fillMaxSize().background(theme.colors.background).pullToRefresh(
+            state = pullToRefreshState,
+            enabled = theme.screenType == ScreenType.MOBILE,
+            onRefresh = {
+                isRefreshing = true
+                openUrl("")
+            },
+            isRefreshing = isRefreshing
+        ),
+        contentAlignment = Alignment.TopCenter,
     ) {
+        PullToRefreshDefaults.Indicator(
+            state = pullToRefreshState,
+            isRefreshing = isRefreshing,
+            modifier = Modifier.align(Alignment.TopCenter).zIndex(1f)
+        )
+
         LazyColumn(
             modifier = Modifier.fillMaxHeight().fillMaxWidth(),
             state = scrollState,
@@ -174,9 +188,12 @@ fun HomeScreen() {
                 currentSection = Section.valueOf(currentSection)
             )
         }
+
+
     if (dialogData.isNotEmpty())
         ImagePreviewDialog(
             images = dialogData,
             onDismiss = { dialogData = emptyList() },
         )
+
 }
