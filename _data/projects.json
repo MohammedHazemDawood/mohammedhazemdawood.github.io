@@ -4,7 +4,7 @@
     "longDescription": "Developed blood sugar tracking application to help users with diabetes to efficiently monitor their blood sugar levels and other health indicators, and make it easy to generate clear, comprehensive reports—particularly for blood sugar readings.\n\nDesigned clean and user-friendly UI using Jetpack Compose and Figma",
     "techStack": ";Jetpack Compose, Kotlin, Datastore Preferences, MVI, Room Database, Koin (DI), Coroutines, Figma",
     "githubUrl": "https://github.com/MohammedHazemDawood/BloodSugar",
-    "date": "2026-04-03",
+    "date": "2026",
     "status": "in progress"
   }
 ]
