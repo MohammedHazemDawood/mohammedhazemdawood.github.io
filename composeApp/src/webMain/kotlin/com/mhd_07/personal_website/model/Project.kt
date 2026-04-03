@@ -18,15 +18,15 @@ data class Project(
 
 @Serializable
 data class ProjectResponse(
-    val title: String,
-    val description: String,
-    val longDescription: String,
-    val techStack: String,
-    val images: List<String>,
-    val githubUrl: String,
-    val liveUrl: String,
-    val date: String,
-    val status: String,        // "completed", "in progress", "archived"
+    val title: String= "",
+    val description: String= "",
+    val longDescription: String= "",
+    val techStack: String= "",
+    val images: List<String> = emptyList(),
+    val githubUrl: String= "",
+    val liveUrl: String= "",
+    val date: String= "",
+    val status: String= "",        // "completed", "in progress", "archived"
 )
 
 expect suspend fun fetchProjects(): List<Project>

@@ -12,37 +12,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.mhd_07.personal_website.theme.Theme
 import com.mhd_07.personal_website.theme.Themes
-import com.mhd_07.personal_website.util.ScreenInfo
-import com.mhd_07.personal_website.util.ScreenSizeHandler
 import com.mhd_07.personal_website.util.ScreenType
+import com.mhd_07.personal_website.util.rememberScreenInfo
 
 val LocalTheme = compositionLocalOf<Theme> { error("No theme provided!") }
 
 @Composable
 fun ScreenController() {
-    val screenSizeHandler = ScreenSizeHandler()
     val mobileTheme = Themes.Mobile()
     val desktopTheme = Themes.Desktop()
-    var screenType by remember { mutableStateOf(ScreenType.DESKTOP) }
-    val currentTheme by remember { derivedStateOf { if (screenType == ScreenType.MOBILE) mobileTheme else desktopTheme } }
-
-    DisposableEffect(Unit) {
-        val listener: (ScreenInfo) -> Unit = { screenInfo ->
-            screenType = screenInfo.type
-        }
-        screenSizeHandler.addListener(listener)
-        onDispose {
-            screenSizeHandler.removeListener(listener) // cleanup on leave
-        }
-    }
+    val screenType by rememberScreenInfo()
+    val currentTheme by remember { derivedStateOf { if (screenType.type == ScreenType.MOBILE) mobileTheme else desktopTheme } }
 
     CompositionLocalProvider(
         LocalTheme provides currentTheme,
     ) {
         SelectionContainer {
-                HomeScreen()
+            HomeScreen()
         }
     }
 }
 
-expect fun openUrl(url : String)
+expect fun openUrl(url: String)

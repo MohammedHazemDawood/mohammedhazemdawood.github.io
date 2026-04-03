@@ -1,37 +1,62 @@
 package com.mhd_07.personal_website.util
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import kotlinx.browser.window
+import org.w3c.dom.events.Event
 
-actual class ScreenSizeHandler actual constructor() {
-    private var currentScreenInfo = getCurrentScreenInfo()
-    private var listeners = mutableListOf<(ScreenInfo) -> Unit>()
+@Composable
+actual fun rememberScreenInfo(): State<ScreenInfo> {
+    val screenInfo = remember { mutableStateOf(calculateScreenInfo()) }
 
-    init {
-        window.addEventListener("resize") {
-            val newInfo = getCurrentScreenInfo()
-            if (newInfo.type != currentScreenInfo.type) {
-                currentScreenInfo = newInfo
-                notifyAllListeners()
-            }
+    DisposableEffect(Unit) {
+        window.requestAnimationFrame {
+            screenInfo.value = calculateScreenInfo()
+        }
+        val listener: (Event) -> Unit = {
+            screenInfo.value = calculateScreenInfo()
+        }
+        window.addEventListener("resize", listener)
+
+        onDispose {
+            window.removeEventListener("resize", listener)
         }
     }
+    return screenInfo
+}
 
-    private fun getCurrentScreenInfo(): ScreenInfo {
-        val width = window.innerWidth
-        val height = window.innerHeight
-        return ScreenInfo(width, height)
+fun calculateScreenInfo(): ScreenInfo {
+    val width = window.innerWidth
+    val height = window.innerHeight
+
+    val agent = window.navigator.userAgent
+
+    val isMob = listOf(
+        "mobi",
+        "android",
+        "iphone",
+        "ipad",
+        "ipod",
+        "blackberry",
+        "windows phone"
+    ).any { agent.contains(it) }
+
+    return when {
+        (isMob && width <= Breakpoints.MOBILE_MAX) -> {
+            ScreenInfo(width, height, ScreenType.MOBILE)
+        }
+
+        (width <= Breakpoints.TABLET_MAX) -> {
+            ScreenInfo(
+                width,
+                height,
+                ScreenType.MOBILE/* there is no difference between mobile and tablet for my ui */
+            )
+        }
+
+        else -> ScreenInfo(width, height, if (isMob) ScreenType.MOBILE else ScreenType.DESKTOP)
     }
-
-    private fun notifyAllListeners() = listeners.forEach { it(currentScreenInfo) }
-
-    actual fun getScreenInfo() = currentScreenInfo
-
-    actual fun addListener(listener: (ScreenInfo) -> Unit) {
-        listeners.add(listener)
-    }
-
-    actual fun removeListener(listener: (ScreenInfo) -> Unit) {
-        listeners.remove(listener)
-    }
-
 }

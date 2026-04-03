@@ -1,3 +1,2 @@
 
-<PersonalWebsite:composeApp>:com.mhd_07.personal_website:!com.mhd_07.personal_website.model:!com.mhd_07.personal_website.theme: com.mhd_07.personal_website.util:
-components:.personalwebsite.composeapp.generated.resources
+<PersonalWebsite:composeApp>:com.mhd_07.personal_website:&com.mhd_07.personal_website.components:!com.mhd_07.personal_website.model:!com.mhd_07.personal_website.theme: com.mhd_07.personal_website.util:.personalwebsite.composeapp.generated.resources

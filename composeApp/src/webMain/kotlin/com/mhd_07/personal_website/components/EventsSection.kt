@@ -1,4 +1,4 @@
-package components
+package com.mhd_07.personal_website.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.mhd_07.personal_website.LocalTheme
-import com.mhd_07.personal_website.model.Project
+import com.mhd_07.personal_website.model.Event
 import com.mhd_07.personal_website.util.ScreenType
 
 @Composable
-fun ProjectsSection(
+fun EventsSection(
     modifier: Modifier = Modifier,
-    data: List<Project>,
+    data: List<Event>,
     onOpenDialog: (List<String>) -> Unit
 ) {
     val theme = LocalTheme.current
@@ -26,27 +26,27 @@ fun ProjectsSection(
             verticalArrangement = Arrangement.spacedBy(theme.dimensions.titleDescriptionSpacing)
         ) {
             GText(
-                text = "Projects",
+                text = "Events",
                 style = theme.typography.titleLarge,
                 color = theme.colors.primary,
             )
             GText(
-                text = "Things I've Built",
+                text = "Outside Code",
                 style = theme.typography.description,
                 color = theme.colors.text,
             )
         }
         data.forEach {
             if (theme.screenType == ScreenType.DESKTOP)
-                ProjectCardDesktop(
-                    project = it,
+                EventCardDesktop(
+                    event = it,
                     onOpenDialog = onOpenDialog,
                     modifier = Modifier.fillMaxWidth(0.95f).align(Alignment.End),
                     shape = RoundedCornerShape(theme.dimensions.cardInnerMargin)
                 )
             else
-                ProjectCardMobile(
-                    project = it,
+                EventCardMobile(
+                    event = it,
                     onOpenDialog = onOpenDialog,
                     modifier = Modifier.fillMaxWidth(0.95f).align(Alignment.End),
                     shape = RoundedCornerShape(theme.dimensions.cardInnerMargin)

@@ -36,14 +36,14 @@ import com.mhd_07.personal_website.model.fetchEvents
 import com.mhd_07.personal_website.model.fetchHero
 import com.mhd_07.personal_website.model.fetchProjects
 import com.mhd_07.personal_website.util.ScreenType
-import components.CertificatesSection
-import components.ContactSection
-import components.EventsSection
-import components.Header
-import components.HomeSection
-import components.ImagePreviewDialog
-import components.ProjectsSection
-import components.Section
+import com.mhd_07.personal_website.components.CertificatesSection
+import com.mhd_07.personal_website.components.ContactSection
+import com.mhd_07.personal_website.components.EventsSection
+import com.mhd_07.personal_website.components.Header
+import com.mhd_07.personal_website.components.HomeSection
+import com.mhd_07.personal_website.components.ImagePreviewDialog
+import com.mhd_07.personal_website.components.ProjectsSection
+import com.mhd_07.personal_website.components.Section
 import kotlinx.coroutines.launch
 
 @Composable
@@ -88,6 +88,12 @@ fun HomeScreen() {
             projects = fetchProjects()
             certificates = fetchCertificates()
             contacts = fetchContacts()
+
+            println(heroData)
+            println(events)
+            println(projects)
+            println(certificates)
+            println(contacts)
 
         } catch (e: Throwable) {
             println("❌ LaunchedEffect CRASHED:$e")

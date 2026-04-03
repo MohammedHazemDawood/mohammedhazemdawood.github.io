@@ -1,5 +1,8 @@
 package com.mhd_07.personal_website.util
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+
 object Breakpoints {
     const val MOBILE_MAX = 767
     const val TABLET_MAX = 1024
@@ -20,8 +23,5 @@ data class ScreenInfo(
     }
 )
 
-expect class ScreenSizeHandler constructor() {
-    fun getScreenInfo() : ScreenInfo
-    fun addListener(listener: (ScreenInfo) -> Unit)
-    fun removeListener(listener: (ScreenInfo) -> Unit)
-}
+@Composable
+expect fun rememberScreenInfo() : State<ScreenInfo>

@@ -1,5 +1,5 @@
 
-
+import "./custom-formatters.js"
 import { importObject, setWasmExports } from './PersonalWebsite-composeApp.import-object.mjs'
 
 let wasmInstance;

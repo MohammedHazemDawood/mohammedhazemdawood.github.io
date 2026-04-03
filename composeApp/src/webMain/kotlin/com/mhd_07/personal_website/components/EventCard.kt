@@ -1,4 +1,4 @@
-package components
+package com.mhd_07.personal_website.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

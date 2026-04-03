@@ -1,4 +1,4 @@
-package components
+package com.mhd_07.personal_website.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,14 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.mhd_07.personal_website.LocalTheme
-import com.mhd_07.personal_website.model.Certificate
+import com.mhd_07.personal_website.model.Project
 import com.mhd_07.personal_website.util.ScreenType
 
 @Composable
-fun CertificatesSection(
+fun ProjectsSection(
     modifier: Modifier = Modifier,
-    data: List<Certificate>,
-    onOpenDialog: (String) -> Unit
+    data: List<Project>,
+    onOpenDialog: (List<String>) -> Unit
 ) {
     val theme = LocalTheme.current
     Column(
@@ -26,27 +26,27 @@ fun CertificatesSection(
             verticalArrangement = Arrangement.spacedBy(theme.dimensions.titleDescriptionSpacing)
         ) {
             GText(
-                text = "Certificates",
+                text = "Projects",
                 style = theme.typography.titleLarge,
                 color = theme.colors.primary,
             )
             GText(
-                text = "My Achievements",
+                text = "Things I've Built",
                 style = theme.typography.description,
                 color = theme.colors.text,
             )
         }
         data.forEach {
             if (theme.screenType == ScreenType.DESKTOP)
-                CertificateCardDesktop(
-                    certificate = it,
+                ProjectCardDesktop(
+                    project = it,
                     onOpenDialog = onOpenDialog,
                     modifier = Modifier.fillMaxWidth(0.95f).align(Alignment.End),
                     shape = RoundedCornerShape(theme.dimensions.cardInnerMargin)
                 )
             else
-                CertificateCardMobile(
-                    certificate = it,
+                ProjectCardMobile(
+                    project = it,
                     onOpenDialog = onOpenDialog,
                     modifier = Modifier.fillMaxWidth(0.95f).align(Alignment.End),
                     shape = RoundedCornerShape(theme.dimensions.cardInnerMargin)
