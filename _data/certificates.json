@@ -1,8 +1,17 @@
 [
   {
-    "title": "AS D;LAS;L,",
-    "issuer": "L,CAS;L,CAS;L",
-    "date": "2026-04-03",
-    "url": "L,CAS;L,CA;L,QW"
+    "title": "Learning Kotlin for Android",
+    "issuer": "Mahara-Tech (ITI)",
+    "date": "2023"
+  },
+  {
+    "title": "Android Application Programming",
+    "issuer": "Edraak.org",
+    "date": "2021"
+  },
+  {
+    "title": "Java Programming 1 & 2 & 3",
+    "issuer": "Edraak.org & AOU",
+    "date": "2021"
   }
 ]
