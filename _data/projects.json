@@ -1,10 +1,25 @@
 [
   {
     "title": "Blood Sugar Tracker",
-    "longDescription": "Developed blood sugar tracking application to help users with diabetes to efficiently monitor their blood sugar levels and other health indicators, and make it easy to generate clear, comprehensive reports—particularly for blood sugar readings.\n\nDesigned clean and user-friendly UI using Jetpack Compose and Figma",
-    "techStack": ";Jetpack Compose, Kotlin, Datastore Preferences, MVI, Room Database, Koin (DI), Coroutines, Figma",
+    "longDescription": "Building a diabetes management Android app using Kotlin/MVI/Room enabling blood sugar logging, and exportable health reports; UI fully designed in Jetpack Compose from Figma prototypes.",
+    "techStack": " Compose, Kotlin, Datastore Preferences, MVI, Room Database, Koin (DI), Coroutines, Figma",
     "githubUrl": "https://github.com/MohammedHazemDawood/BloodSugar",
     "date": "2026",
     "status": "in progress"
+  },
+  {
+    "title": "Athkar Al Hajj & Al Umrah",
+    "longDescription": "Developed an offline Islamic athkar companion app for Hajj and Umrah pilgrims using Jetpack Compose and Kotlin, with no network dependency to support user in areas with poor connectivity.",
+    "techStack": "Jetpack Compose, Kotlin",
+    "liveUrl": "https://play.google.com/store/apps/details?id=com.mohammed.hazem.smart_apps.hejj_and_omra",
+    "date": "2023",
+    "status": "completed"
+  },
+  {
+    "title": "Alhezb Alaazam",
+    "longDescription": "Digitized the Alhezb Alaazam islamic text into fully offline Android app using Jetpack Compose and MVI, serving 10K+ users, with zero network dependency.",
+    "techStack": " Compose, Kotlin, Datastore Preferences, MVI",
+    "liveUrl": "https://play.google.com/store/apps/details?id=com.mohammad.hazem.smart_software.al_hezb_al_aazam",
+    "status": "completed"
   }
 ]
