@@ -79,7 +79,10 @@ private fun ContactItem(
         .build()
 
     Column(
-        modifier = Modifier.clickable { openUrl(contact.link) }
+        modifier = Modifier.clickable {
+            if (contact.link.isNotBlank() && (contact.link.startsWith("https://") || contact.link.startsWith("http://")))
+            openUrl(contact.link)
+        }
             .padding(theme.dimensions.smallMargin),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin)

@@ -68,6 +68,7 @@ const val TAB_SELECTOR = "TAB_SELECTOR"
 @Composable
 fun Header(
     modifier: Modifier = Modifier,
+    sections: List<Section> = Section.sections,
     onSectionClick: (Section) -> Unit,
     currentSection: Section = Section.Home
 ) {
@@ -78,13 +79,16 @@ fun Header(
             colors = CardDefaults.cardColors(containerColor = theme.colors.background),
             elevation = CardDefaults.elevatedCardElevation(),
             shape = CircleShape
-        ){
+        ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(vertical = theme.dimensions.smallMargin, horizontal = theme.dimensions.titleDescriptionSpacing),
+                modifier = Modifier.fillMaxWidth().padding(
+                    vertical = theme.dimensions.smallMargin,
+                    horizontal = theme.dimensions.titleDescriptionSpacing
+                ),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Section.sections.forEach {
+                sections.forEach {
                     Box(modifier = Modifier.clip(CircleShape).clickable { onSectionClick(it) }) {
                         AnimatedContent(
                             targetState = currentSection == it,
@@ -126,4 +130,3 @@ fun Header(
         }
     }
 }
-

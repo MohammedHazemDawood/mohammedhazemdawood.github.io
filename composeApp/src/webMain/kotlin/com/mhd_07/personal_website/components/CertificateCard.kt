@@ -82,7 +82,11 @@ fun CertificateCardDesktop(
                     horizontalArrangement = Arrangement.spacedBy(theme.dimensions.titleContentSpacing)
                 ) {
                     Button(
-                        onClick = { openUrl(certificate.url) },
+                        onClick = {
+                            if (certificate.url.isNotBlank() && (certificate.url.startsWith("https://") || certificate.url.startsWith("http://"))) {
+                                openUrl(certificate.url)
+                            }
+                        },
                         colors = ButtonDefaults.buttonColors(containerColor = theme.colors.primary)
                     ) {
                         GText(
@@ -175,7 +179,11 @@ fun CertificateCardMobile(
                     contentScale = ContentScale.Crop
                 )
             Button(
-                onClick = { openUrl(certificate.url) },
+                onClick = {
+                    if (certificate.url.isNotBlank() && (certificate.url.startsWith("https://") || certificate.url.startsWith("http://"))) {
+                        openUrl(certificate.url)
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = theme.colors.primary),
                 modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing)
             ) {

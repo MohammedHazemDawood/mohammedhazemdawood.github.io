@@ -23,6 +23,6 @@ actual suspend fun fetchContacts(): List<Contact> {
 
     val jsonText: String = response.text().await<JsString>().toString()
 
-    return jsonFormat.decodeFromString(jsonText)
+    return if (jsonText.isEmpty()) emptyList() else jsonFormat.decodeFromString(jsonText)
 
 }

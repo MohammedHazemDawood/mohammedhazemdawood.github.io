@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
@@ -20,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -84,20 +83,29 @@ fun HomeScreen() {
         mutableStateOf(Hero())
     }
 
+    val activeSections by remember {
+        derivedStateOf {
+            Section.sections.filter { section ->
+                when (section) {
+                    Section.Home -> true
+                    Section.Events -> events.isNotEmpty()
+                    Section.Certificates -> certificates.isNotEmpty()
+                    Section.Projects -> projects.isNotEmpty()
+                    Section.Contact -> contacts.isNotEmpty()
+                }
+            }
+        }
+    }
+
 
     LaunchedEffect(Unit) {
 
-        try {
-            heroData = fetchHero()
-            events = fetchEvents()
-            projects = fetchProjects()
-            certificates = fetchCertificates()
-            contacts = fetchContacts()
+        heroData = fetchHero()
+        events = fetchEvents()
+        projects = fetchProjects()
+        certificates = fetchCertificates()
+        contacts = fetchContacts()
 
-        } catch (e: Throwable) {
-//            println("❌ LaunchedEffect CRASHED:$e")
-//            e.printStackTrace()
-        }
     }
     val pullToRefreshState = rememberPullToRefreshState()
     var isRefreshing by remember { mutableStateOf(false) }
@@ -130,41 +138,46 @@ fun HomeScreen() {
                 Spacer(modifier = Modifier.height(if (theme.screenType == ScreenType.MOBILE) theme.dimensions.inSectionSpacing else headerSpacing))
                 HomeSection(modifier = Modifier.fillMaxWidth(0.8f), data = heroData)
             }//end of Home Section
-            item(key = Section.Events.id) {
-                EventsSection(
-                    modifier = Modifier.fillMaxWidth(0.8f),
-                    data = events,
-                    onOpenDialog = { it, index ->
-                        dialogData = it
-                        dialogImageIndex = index
-                    })
-            }//end of Events Section
-            item(key = Section.Certificates.id) {
-                CertificatesSection(
-                    modifier = Modifier.fillMaxWidth(0.8f),
-                    data = certificates,
-                    onOpenDialog = {
-                        dialogData = listOf(it)
-                    }
-                )
-            }//end of Certificates Section
-            item(key = Section.Projects.id) {
-                ProjectsSection(
-                    modifier = Modifier.fillMaxWidth(0.8f),
-                    data = projects,
-                    onOpenDialog = { it, index ->
-                        dialogData = it
-                        dialogImageIndex = index
-                    }
-                )
-            }//end of Projects Section
-            item(key = Section.Contact.id) {
-                ContactSection(
-                    modifier = Modifier.fillMaxWidth(0.8f),
-                    contacts = contacts
-                )
-                Spacer(modifier = Modifier.height(theme.dimensions.inSectionSpacing))
-            }//end of Contact Section
+
+            if (events.isNotEmpty())
+                item(key = Section.Events.id) {
+                    EventsSection(
+                        modifier = Modifier.fillMaxWidth(0.8f),
+                        data = events,
+                        onOpenDialog = { it, index ->
+                            dialogData = it
+                            dialogImageIndex = index
+                        })
+                }//end of Events Section
+            if (certificates.isNotEmpty())
+                item(key = Section.Certificates.id) {
+                    CertificatesSection(
+                        modifier = Modifier.fillMaxWidth(0.8f),
+                        data = certificates,
+                        onOpenDialog = {
+                            dialogData = listOf(it)
+                        }
+                    )
+                }//end of Certificates Section
+            if (projects.isNotEmpty())
+                item(key = Section.Projects.id) {
+                    ProjectsSection(
+                        modifier = Modifier.fillMaxWidth(0.8f),
+                        data = projects,
+                        onOpenDialog = { it, index ->
+                            dialogData = it
+                            dialogImageIndex = index
+                        }
+                    )
+                }//end of Projects Section
+            if (contacts.isNotEmpty())
+                item(key = Section.Contact.id) {
+                    ContactSection(
+                        modifier = Modifier.fillMaxWidth(0.8f),
+                        contacts = contacts
+                    )
+                    Spacer(modifier = Modifier.height(theme.dimensions.inSectionSpacing))
+                }//end of Contact Section
         }
     }
     if (theme.screenType == ScreenType.DESKTOP)
@@ -181,14 +194,15 @@ fun HomeScreen() {
             Header(
                 modifier = Modifier.fillMaxWidth(0.6f),
                 onSectionClick = { clicked ->
-                    val index = Section.sections.indexOfFirst { it.id == clicked.id }
+                    val index = activeSections.indexOfFirst { it.id == clicked.id }
                     if (index != -1) {
                         coroutineScope.launch {
                             scrollState.animateScrollToItem(index)
                         }
                     }
                 },
-                currentSection = Section.valueOf(currentSection)
+                currentSection = Section.valueOf(currentSection),
+                sections = activeSections
             )
         }
 

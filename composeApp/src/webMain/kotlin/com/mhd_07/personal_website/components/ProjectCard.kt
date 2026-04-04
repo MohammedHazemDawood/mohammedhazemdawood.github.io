@@ -127,7 +127,10 @@ fun ProjectCardDesktop(
                     if (project.githubUrl.isNotEmpty()) {
                         Button(
                             modifier = Modifier.weight(1f),
-                            onClick = { openUrl(project.githubUrl) },
+                            onClick = {
+                                if (project.githubUrl.isNotBlank() && (project.githubUrl.startsWith("https://") || project.githubUrl.startsWith("http://")))
+                                    openUrl(project.githubUrl)
+                            },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = theme.colors.primary,
                                 contentColor = theme.colors.onPrimary
@@ -149,7 +152,10 @@ fun ProjectCardDesktop(
                     if (project.liveUrl.isNotEmpty()) {
                         Button(
                             modifier = Modifier.weight(1f),
-                            onClick = { openUrl(project.githubUrl) },
+                            onClick = {
+                                if (project.liveUrl.isNotBlank() && (project.liveUrl.startsWith("https://") || project.liveUrl.startsWith("http://")))
+                                    openUrl(project.liveUrl)
+                            },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = theme.colors.primary,
                                 contentColor = theme.colors.onPrimary
@@ -297,7 +303,10 @@ fun ProjectCardMobile(
                 if (project.githubUrl.isNotEmpty()) {
                     Button(
                         modifier = Modifier.weight(1f),
-                        onClick = { openUrl(project.githubUrl) },
+                        onClick = {
+                            if (project.githubUrl.isNotBlank() && (project.githubUrl.startsWith("https://") || project.githubUrl.startsWith("http://")))
+                                openUrl(project.githubUrl)
+                        },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = theme.colors.primary,
                             contentColor = theme.colors.onPrimary
@@ -321,7 +330,10 @@ fun ProjectCardMobile(
                 if (project.liveUrl.isNotEmpty()) {
                     Button(
                         modifier = Modifier.weight(1f),
-                        onClick = { openUrl(project.githubUrl) },
+                        onClick = {
+                            if (project.liveUrl.isNotBlank() && (project.liveUrl.startsWith("https://") || project.liveUrl.startsWith("http://")))
+                                openUrl(project.liveUrl)
+                        },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = theme.colors.primary,
                             contentColor = theme.colors.onPrimary
@@ -337,7 +349,7 @@ fun ProjectCardMobile(
                             text = "Live",
                             style = theme.typography.display,
                             color = theme.colors.onPrimary,
-                                    overflow = TextOverflow.Ellipsis,
+                            overflow = TextOverflow.Ellipsis,
                             singleLine = true
                         )
                     }

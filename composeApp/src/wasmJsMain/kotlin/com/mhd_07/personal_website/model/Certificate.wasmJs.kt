@@ -17,6 +17,6 @@ actual suspend fun fetchCertificates(): List<Certificate> {
 
     val jsonText: String = response.text().await<JsString>().toString()
 
-    return Json.decodeFromString(jsonText)
+    return if (jsonText.isEmpty()) emptyList() else Json.decodeFromString(jsonText)
 
 }

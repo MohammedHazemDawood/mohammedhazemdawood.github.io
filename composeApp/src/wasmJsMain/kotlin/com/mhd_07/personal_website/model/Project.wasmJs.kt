@@ -17,7 +17,7 @@ actual suspend fun fetchProjects(): List<Project> {
 
     val jsonText: String = response.text().await<JsString>().toString()
 
-    return jsonFormat.decodeFromString<List<ProjectResponse>>(jsonText).map { responseItem ->
+    return if (jsonText.isEmpty()) emptyList() else jsonFormat.decodeFromString<List<ProjectResponse>>(jsonText).map { responseItem ->
         Project(
             title = responseItem.title,
             description = responseItem.description,
