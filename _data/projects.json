@@ -20,6 +20,7 @@
     "longDescription": "Digitized the Alhezb Alaazam islamic text into fully offline Android app using Jetpack Compose and MVI, serving 10K+ users, with zero network dependency.",
     "techStack": " Compose, Kotlin, Datastore Preferences, MVI",
     "liveUrl": "https://play.google.com/store/apps/details?id=com.mohammad.hazem.smart_software.al_hezb_al_aazam",
+    "date": "2023",
     "status": "completed"
   }
 ]
