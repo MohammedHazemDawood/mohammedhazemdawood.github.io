@@ -3,5 +3,10 @@
     "title": "LinkedIn",
     "link": "https://linkedin.com/in/mhd07",
     "icon": "/icon/diagram.png"
+  },
+  {
+    "title": "Mail",
+    "link": "mailto:mo.hazem2007@gmail.com",
+    "icon": "/Gmail_icon_(2020).png"
   }
 ]
