@@ -34,6 +34,16 @@ import org.jetbrains.compose.resources.painterResource
 import personalwebsite.composeapp.generated.resources.Res
 import personalwebsite.composeapp.generated.resources.arrow_left
 import personalwebsite.composeapp.generated.resources.arrow_right
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.foundation.focusable
 
 @Composable
 fun ImagePreviewDialog(
@@ -44,10 +54,18 @@ fun ImagePreviewDialog(
     val pagerState = rememberPagerState(initialPage = firstImageIndex) { images.size }
     val coroutineScope = rememberCoroutineScope()
     val theme = LocalTheme.current
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+    
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.8f))
+            .focusRequester(focusRequester)
+            .focusable()
             .onPreviewKeyEvent {
                 if (it.type == KeyEventType.KeyUp && it.key == Key.Escape) {
                     onDismiss()
