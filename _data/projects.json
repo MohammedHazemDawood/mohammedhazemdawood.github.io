@@ -4,7 +4,7 @@
     "longDescription": "Building a diabetes management Android app using Kotlin/MVI/Room enabling blood sugar logging, and exportable health reports; UI fully designed in Jetpack Compose from Figma prototypes.",
     "techStack": " Compose, Kotlin, Datastore Preferences, MVI, Room Database, Koin (DI), Coroutines, Figma",
     "images": [
-      "/12345.jpg"
+      "/images/blood.jpg"
     ],
     "githubUrl": "https://github.com/MohammedHazemDawood/BloodSugar",
     "date": "2026",
@@ -26,7 +26,7 @@
     "longDescription": "Digitized the Alhezb Alaazam islamic text into fully offline Android app using Jetpack Compose and MVI, serving 10K+ users, with zero network dependency.",
     "techStack": " Compose, Kotlin, Datastore Preferences, MVI",
     "images": [
-      "/cm.jpg"
+      "/images/hezb.jpg"
     ],
     "liveUrl": "https://play.google.com/store/apps/details?id=com.mohammad.hazem.smart_software.al_hezb_al_aazam",
     "date": "2023",
