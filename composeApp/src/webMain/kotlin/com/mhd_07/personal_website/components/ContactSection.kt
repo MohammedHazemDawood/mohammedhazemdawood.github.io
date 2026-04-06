@@ -80,7 +80,7 @@ private fun ContactItem(
 
     Column(
         modifier = Modifier.clickable {
-            if (contact.link.isNotBlank() && (contact.link.startsWith("https://") || contact.link.startsWith("http://")))
+            if (contact.link.isNotBlank())
             openUrl(contact.link)
         }
             .padding(theme.dimensions.smallMargin),
