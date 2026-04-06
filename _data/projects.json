@@ -3,6 +3,9 @@
     "title": "Blood Sugar Tracker",
     "longDescription": "Building a diabetes management Android app using Kotlin/MVI/Room enabling blood sugar logging, and exportable health reports; UI fully designed in Jetpack Compose from Figma prototypes.",
     "techStack": " Compose, Kotlin, Datastore Preferences, MVI, Room Database, Koin (DI), Coroutines, Figma",
+    "images": [
+      "/12345.jpg"
+    ],
     "githubUrl": "https://github.com/MohammedHazemDawood/BloodSugar",
     "date": "2026",
     "status": "in progress"
