@@ -9,11 +9,29 @@
   {
     "title": "Android Application Programming",
     "issuer": "Edraak.org",
-    "date": "2021"
+    "date": "2021",
+    "image": "/Android-Edraak-Certificate_page-0001.jpg",
+    "url": "https://courses.edraak.org/certificates/3bcd8887adbc4e58b3bc47f61327a874"
   },
   {
-    "title": "Java Programming 1 & 2 & 3",
+    "title": "Java Programming 1",
     "issuer": "Edraak.org & AOU",
-    "date": "2021"
+    "date": "2021",
+    "image": "/Edraak-java1 Certificate_page-0001.jpg",
+    "url": "https://courses.edraak.org/certificates/d3586ecfa8e64433a17df1004d954232"
+  },
+  {
+    "title": "Java Programming 2",
+    "issuer": "Edraak.org & AOU",
+    "date": "2021",
+    "image": "/Edraak-java2 Certificate_page-0001.jpg",
+    "url": "https://courses.edraak.org/certificates/49fc757e36b74425864f642936c702f7"
+  },
+  {
+    "title": "Java Programming 3",
+    "issuer": "Edraak.org & AOU",
+    "date": "2021",
+    "image": "/Edraak-java3 Certificate_page-0001.jpg",
+    "url": "https://courses.edraak.org/certificates/4caa7d17d5604daf8019c0e341b3544b"
   }
 ]
