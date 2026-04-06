@@ -11,6 +11,9 @@
     "title": "Athkar Al Hajj & Al Umrah",
     "longDescription": "Developed an offline Islamic athkar companion app for Hajj and Umrah pilgrims using Jetpack Compose and Kotlin, with no network dependency to support user in areas with poor connectivity.",
     "techStack": "Jetpack Compose, Kotlin",
+    "images": [
+      "/document.jpg"
+    ],
     "liveUrl": "https://play.google.com/store/apps/details?id=com.mohammed.hazem.smart_apps.hejj_and_omra",
     "date": "2023",
     "status": "completed"
