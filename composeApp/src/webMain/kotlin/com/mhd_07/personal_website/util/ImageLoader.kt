@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import com.mhd_07.personal_website.LocalTheme
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.image.LandscapistImage
 import com.skydoves.landscapist.image.LandscapistImageState
@@ -25,6 +26,7 @@ fun NetworkImage(
     contentScale: ContentScale = ContentScale.Fit,
     colorFilter: ColorFilter? = null
 ) {
+    val theme = LocalTheme.current
     LandscapistImage(
         modifier =  modifier,
         imageModel = { url },
@@ -35,7 +37,8 @@ fun NetworkImage(
         loading = {
             Box(modifier = Modifier.matchParentSize()) {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
+                    color = theme.colors.primary
                 )
             }
         }
