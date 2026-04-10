@@ -1,6 +1,5 @@
 package com.mhd_07.personal_website.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,10 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.github.panpf.sketch.rememberAsyncImagePainter
-import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
 import com.mhd_07.personal_website.model.Event
+import com.mhd_07.personal_website.util.NetworkImage
 import org.jetbrains.compose.resources.painterResource
 import personalwebsite.composeapp.generated.resources.Res
 import personalwebsite.composeapp.generated.resources.calendar
@@ -123,7 +121,7 @@ fun EventCardDesktop(
             ) {
                 if (event.images.isNotEmpty())
                     Row(horizontalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin)) {
-                        Image(
+                        NetworkImage(
                             modifier = Modifier.clip(
                                 RoundedCornerShape(
                                     topStart = theme.dimensions.cardInnerMargin,
@@ -133,7 +131,7 @@ fun EventCardDesktop(
                                 )
                             ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images, 0) }
                                 .weight(if (event.images.size == 1) 2f else 1f),
-                            painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images.first())),
+                            url = BASE_URL + event.images.first(),
                             contentDescription = null,
                             contentScale = ContentScale.Crop
                         )
@@ -143,7 +141,7 @@ fun EventCardDesktop(
                                     .clickable { onOpenDialog(event.images, 1) },
                                 contentAlignment = Alignment.Center
                             ) {
-                                Image(
+                                NetworkImage(
                                     modifier = Modifier.clip(
                                         RoundedCornerShape(
                                             topEnd = theme.dimensions.cardInnerMargin,
@@ -152,7 +150,7 @@ fun EventCardDesktop(
                                             bottomStart = 0.dp
                                         )
                                     ).aspectRatio(2 / 3f),
-                                    painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images[1])),
+                                    url = BASE_URL + event.images[1],
                                     contentDescription = null,
                                     contentScale = ContentScale.Crop
                                 )
@@ -235,7 +233,7 @@ fun EventCardMobile(
                     horizontalArrangement = Arrangement.spacedBy(theme.dimensions.smallMargin),
                     modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing)
                 ) {
-                    Image(
+                    NetworkImage(
                         modifier = Modifier.clip(
                             RoundedCornerShape(
                                 topStart = theme.dimensions.cardInnerMargin,
@@ -245,7 +243,7 @@ fun EventCardMobile(
                             )
                         ).aspectRatio(2 / 3f).clickable { onOpenDialog(event.images, 0) }
                             .weight(if (event.images.size == 1) 2f else 1f),
-                        painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images.first())),
+                        url = BASE_URL + event.images.first(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop
                     )
@@ -261,7 +259,7 @@ fun EventCardMobile(
                             ).clickable { onOpenDialog(event.images, 1) },
                             contentAlignment = Alignment.Center
                         ) {
-                            Image(
+                            NetworkImage(
                                 modifier = Modifier.clip(
                                     RoundedCornerShape(
                                         topEnd = theme.dimensions.cardInnerMargin,
@@ -270,7 +268,7 @@ fun EventCardMobile(
                                         bottomStart = 0.dp
                                     )
                                 ).aspectRatio(2 / 3f),
-                                painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + event.images[1])),
+                                url = BASE_URL + event.images[1],
                                 contentDescription = null,
                                 contentScale = ContentScale.Crop
                             )

@@ -1,6 +1,5 @@
 package com.mhd_07.personal_website.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,11 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
-import com.github.panpf.sketch.rememberAsyncImagePainter
-import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
 import com.mhd_07.personal_website.model.Hero
 import com.mhd_07.personal_website.openUrl
+import com.mhd_07.personal_website.util.NetworkImage
 import com.mhd_07.personal_website.util.ScreenType
 
 @Composable
@@ -31,8 +29,8 @@ fun HomeSection(modifier: Modifier = Modifier, data: Hero) {
             verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + data.image)),
+            NetworkImage(
+                url = BASE_URL + data.image,
                 contentDescription = "My Profile Picture",
                 modifier = Modifier.fillMaxWidth(0.5f).aspectRatio(1f).clip(CircleShape),
             )
@@ -95,8 +93,8 @@ fun HomeSection(modifier: Modifier = Modifier, data: Hero) {
                 verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + data.image)),
+                NetworkImage(
+                    url = BASE_URL + data.image,
                     contentDescription = "My Profile Picture",
                     modifier = Modifier.fillMaxWidth(0.5f).aspectRatio(1f).clip(CircleShape),
                 )

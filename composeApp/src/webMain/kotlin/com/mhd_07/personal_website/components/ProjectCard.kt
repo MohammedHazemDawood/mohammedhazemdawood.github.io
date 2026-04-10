@@ -1,6 +1,5 @@
 package com.mhd_07.personal_website.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,11 +28,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.github.panpf.sketch.rememberAsyncImagePainter
-import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
 import com.mhd_07.personal_website.model.Project
 import com.mhd_07.personal_website.openUrl
+import com.mhd_07.personal_website.util.NetworkImage
 import org.jetbrains.compose.resources.painterResource
 import personalwebsite.composeapp.generated.resources.Res
 import personalwebsite.composeapp.generated.resources.*
@@ -200,8 +198,8 @@ fun ProjectCardDesktop(
                     modifier = Modifier.weight(0.8f),
                     verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing)
                 ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + project.images.first())),
+                    NetworkImage(
+                        url = BASE_URL + project.images.first(),
                         contentDescription = null,
                         modifier = Modifier
                             .clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
@@ -248,18 +246,18 @@ fun ProjectCardMobile(
                 modifier = Modifier.padding(bottom = theme.dimensions.titleContentSpacing)
             )
 
-            if (project.images.isNotEmpty()) {
-                Image(
-                    painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + project.images.first())),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .padding(bottom = theme.dimensions.inSectionSpacing)
-                        .clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
-                        .aspectRatio(16 / 10f)
-                        .clickable { onOpenDialog(project.images, 0) },
-                    contentScale = ContentScale.Crop
-                )
-            }
+             if (project.images.isNotEmpty()) {
+                 NetworkImage(
+                     url = BASE_URL + project.images.first(),
+                     contentDescription = null,
+                     modifier = Modifier
+                         .padding(bottom = theme.dimensions.inSectionSpacing)
+                         .clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
+                         .aspectRatio(16 / 10f)
+                         .clickable { onOpenDialog(project.images, 0) },
+                     contentScale = ContentScale.Crop
+                 )
+             }
 
             GText(
                 text = project.description,

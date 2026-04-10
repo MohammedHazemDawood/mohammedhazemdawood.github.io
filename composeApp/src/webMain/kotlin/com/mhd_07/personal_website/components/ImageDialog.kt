@@ -1,6 +1,5 @@
 package com.mhd_07.personal_website.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -26,9 +25,8 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.github.panpf.sketch.rememberAsyncImagePainter
-import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
+import com.mhd_07.personal_website.util.NetworkImage
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import personalwebsite.composeapp.generated.resources.Res
@@ -88,16 +86,10 @@ fun ImagePreviewDialog(
             userScrollEnabled = false,
         ) { page ->
             Box(modifier = Modifier.fillMaxSize()) {
-                Image(
+                NetworkImage(
                     modifier = Modifier.fillMaxHeight()
                         .wrapContentWidth().align(Alignment.Center).clickable(false) {},
-                    painter = rememberAsyncImagePainter(
-                        ComposableImageRequest(
-                            run {
-                                val url = images[page]
-                                BASE_URL + url
-                            }
-                        )),
+                    url = BASE_URL + images[page],
                     contentDescription = null,
                     contentScale = ContentScale.Fit
                 )

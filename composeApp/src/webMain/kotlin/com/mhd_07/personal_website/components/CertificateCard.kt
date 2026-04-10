@@ -1,6 +1,5 @@
 package com.mhd_07.personal_website.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,12 +26,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.github.panpf.sketch.rememberAsyncImagePainter
-import com.github.panpf.sketch.request.ComposableImageRequest
-import com.github.panpf.sketch.request.svgBackgroundColor
 import com.mhd_07.personal_website.LocalTheme
 import com.mhd_07.personal_website.model.Certificate
 import com.mhd_07.personal_website.openUrl
+import com.mhd_07.personal_website.util.NetworkImage
 import org.jetbrains.compose.resources.painterResource
 import personalwebsite.composeapp.generated.resources.Res
 import personalwebsite.composeapp.generated.resources.calendar
@@ -120,12 +117,8 @@ fun CertificateCardDesktop(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(theme.dimensions.inSectionSpacing)
                 ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + certificate.image) {
-                            svgBackgroundColor(
-                                Color.Red.toArgb()
-                            )
-                        }),
+                    NetworkImage(
+                        url = BASE_URL + certificate.image,
                         contentDescription = null,
                         modifier = Modifier.clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
                             .aspectRatio(16 / 9f)
@@ -168,16 +161,16 @@ fun CertificateCardMobile(
                 modifier = Modifier.padding(bottom = theme.dimensions.inSectionSpacing),
                 align = TextAlign.Center
             )
-            if (certificate.image.isNotEmpty())
-                Image(
-                    painter = rememberAsyncImagePainter(ComposableImageRequest(BASE_URL + certificate.image)),
-                    contentDescription = null,
-                    modifier = Modifier.clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
-                        .aspectRatio(16 / 9f)
-                        .clickable { onOpenDialog(certificate.image) }
-                        .padding(bottom = theme.dimensions.inSectionSpacing),
-                    contentScale = ContentScale.Crop
-                )
+             if (certificate.image.isNotEmpty())
+                 NetworkImage(
+                     url = BASE_URL + certificate.image,
+                     contentDescription = null,
+                     modifier = Modifier.clip(RoundedCornerShape(theme.dimensions.cardInnerMargin))
+                         .aspectRatio(16 / 9f)
+                         .clickable { onOpenDialog(certificate.image) }
+                         .padding(bottom = theme.dimensions.inSectionSpacing),
+                     contentScale = ContentScale.Crop
+                 )
             Button(
                 onClick = {
                     if (certificate.url.isNotBlank() && (certificate.url.startsWith("https://") || certificate.url.startsWith("http://"))) {

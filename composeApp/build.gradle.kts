@@ -39,10 +39,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation("tech.annexflow.compose:constraintlayout-compose-multiplatform:0.7.0")
-            implementation("io.github.panpf.sketch4:sketch-compose:4.4.0-beta02")
-            implementation("io.github.panpf.sketch4:sketch-http:4.4.0-beta02")
-            implementation("io.github.panpf.sketch4:sketch-svg:4.4.0-beta02")
-            implementation("io.github.panpf.sketch4:sketch-http-ktor3:4.4.0-beta02")
+
+            implementation("com.github.skydoves:landscapist-core:2.9.6")
+            implementation("com.github.skydoves:landscapist-image:2.9.6")
+
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0")
         }
         commonTest.dependencies {

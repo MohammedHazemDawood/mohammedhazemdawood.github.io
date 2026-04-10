@@ -13,19 +13,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
-import com.github.panpf.sketch.PlatformContext
-import com.github.panpf.sketch.Sketch
-import com.github.panpf.sketch.decode.SvgDecoder
-import com.github.panpf.sketch.rememberAsyncImagePainter
-import com.github.panpf.sketch.request.ComposableImageRequest
 import com.mhd_07.personal_website.LocalTheme
 import com.mhd_07.personal_website.model.Contact
 import com.mhd_07.personal_website.openUrl
+import com.mhd_07.personal_website.util.NetworkImage
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -72,11 +68,6 @@ private fun ContactItem(
     contact: Contact,
 ) {
     val theme = LocalTheme.current
-    val sketch = Sketch.Builder(PlatformContext.INSTANCE)
-        .components {
-            addDecoder(SvgDecoder.Factory())
-        }
-        .build()
 
     Column(
         modifier = Modifier.clickable {
@@ -92,17 +83,14 @@ private fun ContactItem(
             colors = CardDefaults.cardColors(containerColor = theme.colors.primary.copy(alpha = 0.1f)),
             modifier = Modifier.size(theme.dimensions.contactCardSize)
         ) {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                Icon(
-                    painter = rememberAsyncImagePainter(
-                        ComposableImageRequest(uri = BASE_URL + contact.icon),
-                        sketch = sketch
-                    ),
-                    contentDescription = null,
-                    tint = theme.colors.primary,
-                    modifier = Modifier.size(theme.dimensions.contactIconSize)
-                )
-            }
+             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                 NetworkImage(
+                     url = BASE_URL + contact.icon,
+                     contentDescription = null,
+                     modifier = Modifier.size(theme.dimensions.contactIconSize),
+                     colorFilter = ColorFilter.tint(theme.colors.primary)
+                 )
+             }
         }
         GText(
             text = contact.title,
